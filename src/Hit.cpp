@@ -3,11 +3,6 @@
 namespace SOCO
 {
 
-static_assert(std::is_trivial<Hit>::value,
-              "SOCO::Hit must be trivial (see "
-              "http://en.cppreference.com/w/cpp/"
-              "concept/TrivialType");
-
 void Hit::write(std::ostream& out) const
 {
     out.write(reinterpret_cast<const char*>(&id), sizeof(id));
@@ -21,3 +16,5 @@ void Hit::write(std::ostream& out) const
 }
 
 } // namespace SOCO
+
+ClassImp(SOCO::Hit)

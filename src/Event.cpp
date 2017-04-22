@@ -23,3 +23,5 @@ void Event::write(std::ostream& out) const
 }
 
 } // namespace SOCO
+
+ClassImp(SOCO::Event)

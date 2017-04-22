@@ -3,6 +3,7 @@
 #include <cstring>
 #include <fcntl.h>
 #include <sys/mman.h>
+#include <sys/stat.h>
 #include <unistd.h>
 
 #include "FSUtils.h"

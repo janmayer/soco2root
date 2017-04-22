@@ -2,9 +2,11 @@
 
 #include <iostream>
 
+#include "TFile.h"
+#include "TTree.h"
+
 #include "Event.h"
 #include "EventReader.h"
-#include "RootWriter.h"
 
 Soco2Root::Soco2Root(const std::string& in, const std::string& out)
     : input(in)
@@ -16,19 +18,23 @@ void Soco2Root::process()
 {
     try
     {
-        SOCO::Event e;
+        SOCO::Event event;
 
-        SOCO::EventReader eR;
-        eR.mapFile("test.evt");
+        SOCO::EventReader eventReader;
+        eventReader.mapFile(input);
 
-        RootWriter eW("test.root");
-        eW.connect(&e.hits);
+        TFile tfile(output.c_str(), "RECREATE");
+        TTree ttree("ttree", "SOCO Events");
+        ttree.Branch("events", &event);
 
-        while (eR.getNextEvent(e))
+        while (eventReader.getNextEvent(event))
         {
-            eW.process();
+            ttree.Fill();
         }
-        eW.disconnect();
+
+        tfile.Write();
+        ttree.Print();
+        tfile.Close();
     }
     catch (const std::exception& e)
     {

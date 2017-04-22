@@ -7,6 +7,8 @@
 #include <ostream>
 #include <vector>
 
+#include "TObject.h"
+
 #include "Hit.h"
 
 namespace SOCO
@@ -28,7 +30,7 @@ struct EventMetadataHeader
     size_t size;
 };
 
-class Event
+class Event : public TObject
 {
     public:
     std::vector<Hit> hits;
@@ -67,6 +69,8 @@ class Event
         return *this;
     }
 
+    virtual ~Event() = default;
+
     void clear() noexcept
     {
         trigger_id = std::numeric_limits<uint16_t>::max();
@@ -75,6 +79,8 @@ class Event
     }
 
     void write(std::ostream& out) const;
+
+    ClassDef(Event, 1)
 };
 
 } // namespace SOCO
