@@ -1,6 +1,6 @@
 # soco2root
 
-soco2root converts event files (`*.evt`) build by `sooc2` to `*.root` files readable by `ROOT`.
+soco2root converts event files (`*.evt`) build by `soco2` to `*.root` files readable by `ROOT`.
 The contents are not changed - think of converting a MS Office document to LibreOffice.
 
 The resulting `root`-files contain a tree called `ttree` with a single branch `events` of type `SOCO::Event`.
@@ -19,7 +19,6 @@ Each event then contains a vector with all hits belonging to this event.
 ## Usage
 
 ### Converting
-
 ```
 soco2root:
   -h [ --help ]             Display this help message
@@ -53,8 +52,7 @@ A `SOCO:Event*` can then be set as branch address and iterated over as usual. Se
 
 
 ## Limitations & Warnings
-
-SOCO2 saves hit energy / adc value as uint16_t, which 
+SOCO2 saves hit energy / adc value as `uint16_t`, which 
 - limits possible hit.adc values to [0:+65,535]
 - can lead to hard-to-track errors when doing math operations due to **unsigned math**
 - can sometimes lead to strange binning issues when filling histograms
@@ -63,7 +61,7 @@ SOCO2 saves hit energy / adc value as uint16_t, which
 It **may** sometimes be advisable to one or more of the following steps :
 - convert the adc value to float while adding a random number [-0.5:+0.5]
 - calibrate to a different unit, e.g. 0.1 keV or 0.5 keV (ranges of [0:6,553keV] or [0:32,767keV]) 
-- not to calibrate at all in SOCO2, thus directly saving the orignal DAQ-adc value in the hit, then calibrating in root 
+- not to calibrate at all in SOCO2, thus directly saving the original DAQ-adc value in the hit, then calibrating in root 
 
 ## Installation
 
@@ -84,7 +82,7 @@ make
 ```
 
 ### ✌Installing✌
-- executeable:
+- executable:
     - add build directory to `PATH`
     - or move id to a directory which is in your path
     - or call it directly 
