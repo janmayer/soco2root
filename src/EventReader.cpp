@@ -159,16 +159,16 @@ void EventReader::readHeader()
     if (mapped_bytes_ < next_ + sizeof(EventHeader))
     {
         throw runtime_error(
-            "EventReader::readHeader() - "
-            "not enough data in file");
+            "EventReader::readHeader() - " + filename_ +
+            " not enough data in file");
     }
 
     const EventHeader* header = interpret_as<EventHeader*>(raw_data_, next_);
     if (header->magic != SOCO_EVENT_MAGIC)
     {
         throw runtime_error(
-            "EventReader::readHeader() - "
-            "invalid magic");
+            "EventReader::readHeader() - " + filename_ +
+            " invalid magic");
     }
     num_events_ = header->event_count;
 
@@ -179,8 +179,8 @@ void EventReader::readHeader()
         if (next_ + sizeof(uint64_t) > mapped_bytes_)
         {
             throw runtime_error(
-                "EventReader::readHeader() - "
-                "not enough data in file");
+                "EventReader::readHeader() - " + filename_ +
+                " not enough data in file");
         }
 
         const uint64_t magic = interpret_as<uint64_t>(raw_data_, next_);
@@ -195,7 +195,9 @@ void EventReader::readHeader()
         }
         else
         {
-            throw runtime_error("EventReader::() - invalid magic");
+            throw runtime_error(
+                "EventReader::readHeader() - " + filename_ +
+                " invalid magic");
         }
     }
     first_data_ = next_;
@@ -217,16 +219,16 @@ void EventReader::readMetadata()
         if (next_ + sizeof(EventMetadataHeader) > mapped_bytes_)
         {
             throw runtime_error(
-                "EventReader::readMetadata() - "
-                "not enough data in file");
+                "EventReader::readMetadata() - " + filename_ +
+                " not enough data in file");
         }
 
         const EventMetadataHeader* header = interpret_as<EventMetadataHeader*>(raw_data_, next_);
         if (next_ + sizeof(EventMetadataHeader) + header->size > mapped_bytes_)
         {
             throw runtime_error(
-                "EventReader::readMetadata() - "
-                "not enough data in file");
+                "EventReader::readMetadata() - " + filename_ +
+                " not enough data in file");
         }
         next_ += sizeof(EventMetadataHeader);
         metadata_.emplace_back(interpret_as<char*>(raw_data_, next_),

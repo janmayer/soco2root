@@ -9,8 +9,8 @@
 
 #include <fcntl.h>
 #include <pwd.h>
-#include <sys/stat.h>
 #include <sys/mman.h>
+#include <sys/stat.h>
 #include <sys/vfs.h>
 #include <unistd.h>
 
