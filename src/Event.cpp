@@ -4,9 +4,6 @@ namespace SOCO
 {
 
 static_assert(sizeof(EventHeader) == 16, "EventHeader must not have padding bytes");
-static_assert(std::is_nothrow_default_constructible<std::vector<Hit>>::value,
-              "std::vector<Hit> must be nothrow default constructible");
-
 
 void Event::write(std::ostream& out) const
 {

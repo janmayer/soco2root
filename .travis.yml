@@ -1,0 +1,25 @@
+language: cpp
+
+os: linux
+compiler: gcc
+dist: trusty
+sudo: required
+env: FAIRSOFT_VERSION=mar17_root6
+
+before_install:
+    - sudo apt-get update -qq;
+    - sudo apt-get install -y gfortran libcurl4-openssl-dev xutils-dev libc6-dev-i386
+    - wget http://fairroot.gsi.de/downloads/fairsoft-${FAIRSOFT_VERSION}_1.0_amd64.deb;
+    - sudo dpkg -i fairsoft-${FAIRSOFT_VERSION}_1.0_amd64.deb;
+    - export PATH=/opt/fairsoft/${FAIRSOFT_VERSION}/bin:$PATH;
+
+install:
+
+before_script:
+    - $CXX --version
+    - cmake --version
+
+script:
+    - mkdir build
+    - cd build
+    - cmake .. && make

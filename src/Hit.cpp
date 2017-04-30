@@ -1,4 +1,5 @@
 #include "Hit.h"
+#include <stdexcept>
 
 namespace SOCO
 {
