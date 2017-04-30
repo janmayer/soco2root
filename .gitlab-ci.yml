@@ -1,0 +1,15 @@
+image: lhcbdev/slc6-build
+
+#before_script:
+#  - yum
+
+stages:
+  - build
+
+build-job:
+  stage: build
+  script:
+    - mkdir build
+    - cd build
+    - cmake ..
+    - make
