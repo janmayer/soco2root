@@ -3,7 +3,7 @@ void TChainEventLoop()
     SOCO::Event* event = new SOCO::Event();
 
     TChain* chain = new TChain("ttree");
-    chain->Add("../build/out/*.root");
+    chain->Add("Co-56*.root");
     chain->SetBranchAddress("events", &event);
     const Long64_t nEntries = chain->GetEntries();
     std::cout << "Total number of events: " << nEntries << std::endl;

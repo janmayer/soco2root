@@ -43,7 +43,7 @@ Using thread pool with 20 threads.
 ```
 
 ### Root Macros
-To be available in your root macros, the directory containing `libSOCO.rootmap` and `libSOCO.so` has to be added to the 
+To be available in your root macros, the directory containing `libSOCO.rootmap` and `libSOCO.so` has to be added to the
 environment variable, e.g.:
 
 `export LD_LIBRARY_PATH=/path/to/soco2root/build/:$LD_LIBRARY_PATH`
@@ -52,16 +52,14 @@ A `SOCO:Event*` can then be set as branch address and iterated over as usual. Se
 
 
 ## Limitations & Warnings
-SOCO2 saves hit energy / adc value as `uint16_t`, which 
-- limits possible hit.adc values to [0:+65,535]
+SOCO2 does NOT actually save calibrated values to the event files,
+that means you have to implement energy calibration yourself (see examples).
+
+Note: Hit energy values are saved as `uint16_t`, which
 - can lead to hard-to-track errors when doing math operations due to **unsigned math**
 - can sometimes lead to strange binning issues when filling histograms
-- may loose resolution when using calibration (i.e calibration to 1 keV per hit.adc value unit) 
+- may loose resolution when using calibration (i.e calibration to 1 keV per hit.adc value unit)
 
-It **may** sometimes be advisable to one or more of the following steps :
-- convert the adc value to float while adding a random number [-0.5:+0.5]
-- calibrate to a different unit, e.g. 0.1 keV or 0.5 keV (ranges of [0:6,553keV] or [0:32,767keV]) 
-- not to calibrate at all in SOCO2, thus directly saving the original DAQ-adc value in the hit, then calibrating in root 
 
 ## Installation
 
@@ -85,6 +83,6 @@ make
 - executable:
     - add build directory to `PATH`
     - or move id to a directory which is in your path
-    - or call it directly 
+    - or call it directly
 - library
     - add build directory to `LD_LIBRARY_PATH`, see [Root Macros](#root-macros)
